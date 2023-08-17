@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Detail = ({ route, navigation }) => {
     // const prdctName = route.params.prdctName
@@ -8,12 +9,22 @@ const Detail = ({ route, navigation }) => {
     const prdctId = route.params.id
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/${prdctId}`)
-            .then(res => res.json())
-            .then(data => setProduct(data))
-            .finally(setLoading(false))
-            .catch(error => console.log(error))
+        // fetch(`https://fakestoreapi.com/products/${prdctId}`)
+        //     .then(res => res.json())
+        //     .then(data => setProduct(data))
+        //     .finally(setLoading(false))
+        //     .catch(error => console.log(error))
+        const getData = async () => {
+            try {
+                const res = axios(`https://fakestoreapi.com/products/${prdctId}`)
+                setProducts(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+            setLoading(false)
+        }
 
+        getData()
 
     }, [])
 

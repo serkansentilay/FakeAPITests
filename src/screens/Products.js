@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ProductItem from '../components/ProductItem'
-
+import axios from 'axios'
 const Products = ({ route, navigation }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
@@ -10,16 +10,45 @@ const Products = ({ route, navigation }) => {
 
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/category/${ctgName}`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
-            .finally(setLoading(false))
-            .catch(error => console.log(error))
+        // fetch(`https://fakestoreapi.com/products/category/${ctgName}`)
+        //     .then(res => res.json())
+        //     .then(data => setProducts(data))
+        //     .finally(setLoading(false))
+        //     .catch(error => console.log(error))
 
+        //    axios(`https://fakestoreapi.com/products/category/${ctgName}`)            
+        //     .then(res => setProducts(res.data))
+        //     .finally(setLoading(false))
+        //     .catch(error => console.log(error))
+
+        const getData = async () => {
+            try {
+                // const {data} =axios(`https://fakestoreapi.com/products/category/${ctgName}`)  
+                const res = axios(`https://fakestoreapi.com/products/category/${ctgName}`)
+                setProducts(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+            setLoading(false)
+        }
+
+        getData()
+
+        // (async()=>{
+        //     try {
+        //         // const {data} =axios(`https://fakestoreapi.com/products/category/${ctgName}`)  
+        //          const res =axios(`https://fakestoreapi.com/products/category/${ctgName}`)  
+        //          setProducts(res.data)
+        //      } catch (error) {
+        //          console.log(error)
+        //      }
+        //      setLoading(false)
+        // })()
 
         navigation.setOptions({
             title: `${ctgName}`
         })
+
     }, [])
 
     console.log("route ctgName", ctgName)
