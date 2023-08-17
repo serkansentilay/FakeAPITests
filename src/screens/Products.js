@@ -24,7 +24,7 @@ const Products = ({ route, navigation }) => {
         const getData = async () => {
             try {
                 // const {data} =axios(`https://fakestoreapi.com/products/category/${ctgName}`)  
-                const res = axios(`https://fakestoreapi.com/products/category/${ctgName}`)
+                const res = await axios(`https://fakestoreapi.com/products/category/${ctgName}`)
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)

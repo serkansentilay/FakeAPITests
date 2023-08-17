@@ -17,8 +17,8 @@ const Categories = () => {
 
         const getData = async () => {
             try {
-                const res = axios(`https://fakestoreapi.com/products/categories`)
-                setProducts(res.data)
+                const res = await axios(`https://fakestoreapi.com/products/categories`)
+                setCategories(res.data)
             } catch (error) {
                 console.log(error)
             }
